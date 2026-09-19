@@ -127,6 +127,45 @@ class RecursiveChunker:
 
         return final_chunks
 
+class HeadingChunker:
+    """
+    Split text into chunks based on Markdown headings (#, ##, ###)
+    and uppercase section titles (e.g. THÔNG TIN CHUNG, CHỨC NĂNG NHIỆM VỤ).
+    """
+
+    def __init__(self, chunk_size: int = 500) -> None:
+        self.chunk_size = chunk_size
+
+    def chunk(self, text: str) -> list[str]:
+        if not text or not text.strip():
+            return []
+
+        lines = text.split("\n")
+        chunks: list[str] = []
+        current: list[str] = []
+
+        for line in lines:
+            stripped = line.strip()
+            is_heading = (
+                stripped.startswith("#")
+                or (stripped.isupper() and len(stripped) > 3 and not stripped.startswith("HTTP"))
+            )
+            if is_heading and current:
+                chunk_str = "\n".join(current).strip()
+                if chunk_str:
+                    chunks.append(chunk_str)
+                current = [line]
+            else:
+                current.append(line)
+
+        if current:
+            chunk_str = "\n".join(current).strip()
+            if chunk_str:
+                chunks.append(chunk_str)
+
+        return chunks
+
+
 def _dot(a: list[float], b: list[float]) -> float:
     return sum(x * y for x, y in zip(a, b))
 
@@ -151,6 +190,7 @@ def compute_similarity(vec_a: list[float], vec_b: list[float]) -> float:
 
     return dot_val / (mag_a * mag_b)
 
+
 class ChunkingStrategyComparator:
     """Run all built-in chunking strategies and compare their results."""
 
@@ -158,6 +198,7 @@ class ChunkingStrategyComparator:
         fixed = FixedSizeChunker(chunk_size=chunk_size, overlap=20).chunk(text)
         sentences = SentenceChunker(max_sentences_per_chunk=3).chunk(text)
         recursive = RecursiveChunker(chunk_size=chunk_size).chunk(text)
+        heading = HeadingChunker(chunk_size=chunk_size).chunk(text)
 
         def get_stats(chunks: list[str]) -> dict:
             cnt = len(chunks)
@@ -168,4 +209,5 @@ class ChunkingStrategyComparator:
             "fixed_size": get_stats(fixed),
             "by_sentences": get_stats(sentences),
             "recursive": get_stats(recursive),
+            "heading": get_stats(heading),
         }

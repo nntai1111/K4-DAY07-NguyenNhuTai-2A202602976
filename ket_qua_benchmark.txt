@@ -1,0 +1,70 @@
+==============================================================================
+Chunker        : HeadingChunker {'chunk_size': 500}
+Embedding      : sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+Dữ liệu        : data\dich-vu-sinh-vien-utc (10 file)
+Số chunk đã nạp: 55 | độ dài TB: 549 ký tự
+(* = chunk thuộc tài liệu gold)
+==============================================================================
+--- Q1  | filter=None
+  1.* score=0.591  doc_id=ky-tuc-xa-quan-ly  (ky-tuc-xa-quan-ly#0)
+       # Ban Quản lý Ký túc xá: chức năng và dịch vụ cho sinh viên nội trú  Ban Quản lý ký túc xá...
+  2.  score=0.548  doc_id=cong-tac-sinh-vien  (cong-tac-sinh-vien#0)
+       # Phòng Chăm sóc người học: công tác sinh viên, học bổng và chế độ chính sách  Phòng chăm sóc người học  PHÒNG...
+  3.* score=0.532  doc_id=ky-tuc-xa-quan-ly  (ky-tuc-xa-quan-ly#3)
+       CHỨC NĂNG NHIỆM VỤ  Ban quản lý Ký túc xá được thành lập theo quyết định số 390/QĐ-TC, ngày 24 tháng 10 năm 19...
+  gold doc trong top-3: CÓ | chuỗi đáp án: '214 phòng': OK, '1500 sinh viên': OK | điểm: 2/2
+
+--- Q2  | filter=None
+  1.* score=0.521  doc_id=dao-tao-dai-hoc-hoc-vu  (dao-tao-dai-hoc-hoc-vu#0)
+       # Phòng Đào tạo đại học: đăng ký học phần và các thủ tục học vụ  Phòng Đào tạo đại học...
+  2.  score=0.509  doc_id=ke-hoach-tai-chinh-hoc-phi  (ke-hoach-tai-chinh-hoc-phi#0)
+       # Phòng Kế hoạch - Tài chính: học phí và các khoản thu  Phòng Kế hoạch - Tài chính...
+  3.  score=0.501  doc_id=ke-hoach-tai-chinh-hoc-phi  (ke-hoach-tai-chinh-hoc-phi#3)
+       GIỚI THIỆU  Phòng Tài chính Kế toán được hình thành ngay từ những ngày đầu thành lập Trường Cao đẳng công chín...
+  gold doc trong top-3: CÓ | chuỗi đáp án: 'vay vốn tín dụng đào tạo': THIẾU, 'học bổng khuyến khích học tập': THIẾU | điểm: 0/2
+
+--- Q3 [A: không filter] | filter=None
+  1.  score=0.664  doc_id=quan-ly-chat-luong  (quan-ly-chat-luong#3)
+       CHỨC NĂNG NHIỆM VỤ  1. Chức năng  Tham mưu, xây dựng kế hoạch và tổ chức thực hiện công tác khảo thí, kiểm tra...
+  2.  score=0.572  doc_id=quan-ly-chat-luong  (quan-ly-chat-luong#0)
+       # Phòng Quản lý chất lượng: khảo thí và đảm bảo chất lượng đào tạo  Phòng Quản lý chất lượng...
+  3.* score=0.562  doc_id=dao-tao-dai-hoc-hoc-vu  (dao-tao-dai-hoc-hoc-vu#0)
+       # Phòng Đào tạo đại học: đăng ký học phần và các thủ tục học vụ  Phòng Đào tạo đại học...
+  gold doc trong top-3: CÓ | chuỗi đáp án: 'đánh giá kết quả học tập của sinh viên': THIẾU | điểm: 0/2
+--- Q3 [B: có filter] | filter={'audience': 'student'}
+  1.* score=0.562  doc_id=dao-tao-dai-hoc-hoc-vu  (dao-tao-dai-hoc-hoc-vu#0)
+       # Phòng Đào tạo đại học: đăng ký học phần và các thủ tục học vụ  Phòng Đào tạo đại học...
+  2.* score=0.509  doc_id=dao-tao-dai-hoc-hoc-vu  (dao-tao-dai-hoc-hoc-vu#4)
+       CHỨC NĂNG NHIỆM VỤ  Có chức năng tham mưu cho Hiệu trưởng về công tác xây dựng kế hoạch, chương trình đào tạo,...
+  3.* score=0.507  doc_id=dao-tao-dai-hoc-hoc-vu  (dao-tao-dai-hoc-hoc-vu#3)
+       GIỚI THIỆU  Phòng Đào tạo Đại học (ĐTĐH) là đơn vị được thành lập từ năm 1962, ngay sau khi thành lập Trường Đ...
+  gold doc trong top-3: CÓ | chuỗi đáp án: 'đánh giá kết quả học tập của sinh viên': OK | điểm: 2/2
+
+--- Q4  | filter=None
+  1.  score=0.771  doc_id=ky-tuc-xa-quan-ly  (ky-tuc-xa-quan-ly#0)
+       # Ban Quản lý Ký túc xá: chức năng và dịch vụ cho sinh viên nội trú  Ban Quản lý ký túc xá...
+  2.  score=0.771  doc_id=ky-tuc-xa-quan-ly  (ky-tuc-xa-quan-ly#3)
+       CHỨC NĂNG NHIỆM VỤ  Ban quản lý Ký túc xá được thành lập theo quyết định số 390/QĐ-TC, ngày 24 tháng 10 năm 19...
+  3.* score=0.695  doc_id=cong-tac-sinh-vien  (cong-tac-sinh-vien#0)
+       # Phòng Chăm sóc người học: công tác sinh viên, học bổng và chế độ chính sách  Phòng chăm sóc người học  PHÒNG...
+  gold doc trong top-3: CÓ | chuỗi đáp án: 'sáp nhập lại Phòng CTCT&SV': THIẾU | điểm: 0/2
+
+--- Q5  | filter=None
+  1.* score=0.670  doc_id=thu-vien-dich-vu  (thu-vien-dich-vu#0)
+       # Trung tâm Thông tin - Thư viện: dịch vụ và đối tượng bạn đọc  Trung tâm thông tin thư viện...
+  2.* score=0.611  doc_id=thu-vien-dich-vu  (thu-vien-dich-vu#4)
+       CHỨC NĂNG NHIỆM VỤ  Trung tâm Thông tin - Thư viện có chức năng tham mưu cho Hiệu trưởng trong việc quản lý, t...
+  3.* score=0.570  doc_id=thu-vien-dich-vu  (thu-vien-dich-vu#3)
+       GIỚI THIỆU  Năm 1962 cùng với quyết định thành lập Trường ĐH Giao thông vận tải, Thư viện đã được hình thành, ...
+  gold doc trong top-3: CÓ | chuỗi đáp án: 'opac.utc.edu.vn': OK, 'trong và ngoài Trường': THIẾU | điểm: 0/2
+
+==============================================================================
+TỔNG KẾT
+  Q1: gold doc trong top-3=CÓ | điểm nội dung=2/2 
+  Q2: gold doc trong top-3=CÓ | điểm nội dung=0/2 
+  Q3: gold doc trong top-3=CÓ | điểm nội dung=2/2 A=0 / B=2
+  Q4: gold doc trong top-3=CÓ | điểm nội dung=0/2 
+  Q5: gold doc trong top-3=CÓ | điểm nội dung=0/2 
+  Chấm theo doc_id (ngây thơ): 5/5 câu có tài liệu gold trong top-3
+  Chấm theo nội dung         : 4/10 điểm
+==============================================================================

@@ -20,7 +20,8 @@ class EmbeddingStore:
     def _make_record(self, doc: Document) -> dict[str, Any]:
         embedding = self._embedding_fn(doc.content)
         meta = dict(doc.metadata) if doc.metadata else {}
-        meta["doc_id"] = doc.id
+        if "doc_id" not in meta:
+            meta["doc_id"] = doc.id
         return {
             "id": doc.id,
             "content": doc.content,
